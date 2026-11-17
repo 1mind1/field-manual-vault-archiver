@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.sqlite3
+*.sqlite3-*
+*.part
+*.pdf
+*.epub
+Field_Manual_Catalog.html
+Field_Manual_Existing_Files.csv
+Field_Manual_Exact_Duplicates.csv
+Field_Manual_Metadata_Repairs.csv
+Field_Manual_Storage_Estimate.json
+Field_Manual_Coverage_Report.json
+Field_Manual_Coverage_Report.txt
+trex_manifest_*.json
+trex_manifest_*.csv
+trex_discovery_*.json
+trex_metadata_progress_*.json
+trex_incomplete_*.json
+trex_*errors.csv
+Organized Library/
+.DS_Store
+Thumbs.db
