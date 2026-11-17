@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ['3.10', '3.13']
     runs-on: ${{ matrix.os }}
     steps:
@@ -15,4 +15,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - run: python -m unittest discover -p 'test_*.py' -v
+      - name: Offline regression tests
+        run: python -m unittest discover -p 'test_*.py' -v
+      - name: Bash entrypoint smoke tests
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          bash -n START_LINUX.sh START_MACOS.command
+          bash START_LINUX.sh --version
+          bash START_MACOS.command --help > /dev/null

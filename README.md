@@ -2,11 +2,11 @@
 
 [![Offline unit tests](https://github.com/1mind1/field-manual-vault-archiver/actions/workflows/tests.yml/badge.svg)](https://github.com/1mind1/field-manual-vault-archiver/actions/workflows/tests.yml)
 
-**V5.0.2 release candidate (RC3)** — an unofficial, dependency-free Python/Windows tool for selectively archiving public [T.REX ARMS Field Manual Vault](https://www.trex-arms.com/field-manual-vault) publications. Download PDF, EPUB, or both; browse organized subject folders; search your local library; and update the catalog without redownloading everything.
+**V5.0.2 release candidate (RC3)** — an unofficial, dependency-free Python tool for Windows, Linux and macOS for selectively archiving public [T.REX ARMS Field Manual Vault](https://www.trex-arms.com/field-manual-vault) publications. Download PDF, EPUB, or both; browse organized subject folders; search your local library; and update the catalog without redownloading everything.
 
 **Not affiliated with or endorsed by T.REX ARMS.** The repository contains **no manuals or copies of the site's catalog**. It only requests public links when you run it. It does not bypass access controls.
 
-> The V5 workflow has been trialed on Windows by a user. RC3 adds offline repair for five legacy metadata anomalies observed in the user-provided cache. The current patch still needs a Windows smoke test before a stable release.
+> The V5 workflow has been trialed on Windows by a user. RC3 adds offline repair for five legacy metadata anomalies observed in the user-provided cache. The Linux launcher has passed offline checks, but macOS still requires CI and real-device verification before stable support is claimed.
 
 ## Quick start (Windows)
 
@@ -30,6 +30,42 @@
 
 **Recommended workflow:** Run **7** to check for new entries, then **3** with the same categories, a small GB cap (such as 2 GB), and both formats. Existing valid PDFs and EPUBs are skipped, and interrupted `.part` downloads are resumable when the server supports Range requests.
 
+## Quick start (Linux)
+
+Requires **Bash** and **Python 3.10+**. No external Python packages, Docker, or administrator rights are needed.
+
+1. Download and extract this repository (or clone it).
+2. Open a terminal in its directory and run:
+
+   ```bash
+   bash START_LINUX.sh
+   ```
+
+   Optionally, run `chmod +x START_LINUX.sh` once and then `./START_LINUX.sh`.
+3. Choose your archive folder (default: `~/Documents/Field Manual Vault`).
+4. Use option **7** for metadata-only updates or option **3** for selective PDF/EPUB downloads and a per-run storage cap.
+
+The Linux menu offers all seven Windows options, including the same polite discovery pacing presets. To use the advanced CLI directly, run `bash START_LINUX.sh --help` or `python3 trex_vault_archiver.py --help`.
+
+## Quick start (macOS)
+
+Requires **macOS Terminal** and **Python 3.10+**. Check `python3 --version`; if it is too old or unavailable, install Python from [python.org](https://www.python.org/downloads/macos/).
+
+1. Download and extract this repository.
+2. In Terminal, open the extracted directory and run:
+
+   ```bash
+   bash START_MACOS.command
+   ```
+
+   Alternatively, run `chmod +x START_MACOS.command` once and double-click it in Finder, subject to macOS security settings. The Finder launcher keeps Terminal open to show the result.
+3. Choose your archive folder and use option **7** for metadata discovery or **3** for selective downloads.
+
+The default is `~/Documents/Field Manual Vault`. Depending on macOS privacy settings, Terminal may request access to Documents. The launcher shares the same Python archiver, cache, categorization, resume, and duplicate-audit logic as Windows and Linux.
+
+**Compatibility status:** Linux's offline launcher tests have passed; GitHub Actions adds macOS offline tests. A real Mac user still needs to verify Finder startup and a small live download before macOS support is considered stable. Linux live downloads have not been independently verified.
+
+Start safely with **option 6** (offline index) or **option 1** (offline file audit). Then try **option 7** (metadata only) and **option 3** with a small selection and data cap.
 ## How your files are organized
 
 ```text
@@ -133,7 +169,7 @@ The examples are shown with shell line continuation for readability. On **Window
 python -m unittest discover -p 'test_*.py' -v
 ```
 
-The 48 offline tests mock network responses, simulates interrupted listing pages, checks metadata changes and 404 handling, confirms old files are preserved, tests storage estimate failure modes, and verifies resume behavior. GitHub Actions runs tests on Windows and Ubuntu with Python 3.10 and 3.13.
+The original 48 offline tests mock network responses, simulate interrupted listing pages, checks metadata changes and 404 handling, confirms old files are preserved, tests storage estimate failure modes, and verifies resume behavior. Four additional Linux/macOS launcher tests cover safe menu behavior, offline catalog rebuilding, CLI startup, and spaces in paths. GitHub Actions runs tests on Windows, Ubuntu, and macOS with Python 3.10 and 3.13.
 
 Before tagging a stable **v1.0** GitHub release:
 
