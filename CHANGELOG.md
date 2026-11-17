@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased — Linux and macOS launchers
+
+- Add a Bash seven-option menu launcher for Linux and a Finder-friendly macOS `.command` wrapper.
+- Keep the Windows launcher and shared Python download core unchanged.
+- Add four offline Unix launcher tests covering CLI startup, a path containing spaces, safe full-download cancellation, and invalid menu choices.
+- Expand CI from Ubuntu/Windows to Ubuntu/Windows/macOS for Python 3.10 and 3.13.
+- Document Python requirements and OS-specific startup with explicit limits on unverified live Mac/Linux downloads.
+
+
 ## 5.0.2-rc3 (2026-11-16) — Offline cache metadata quality correction
 
 - Validate numeric Status badges in new HTML metadata and report uncorrected numeric Status values alongside Function/Collection anomalies.
